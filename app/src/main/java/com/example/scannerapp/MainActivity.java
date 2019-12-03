@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                 .check();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
     @Override
     protected void onDestroy() {
@@ -69,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     @Override
     public void handleResult(Result rawResult) {
     txtResult.setText(rawResult.getText());
-    processRawResults(rawResult.getText());
+    //processRawResults(rawResult.getText());
     scannerView.startCamera();
     }
 
