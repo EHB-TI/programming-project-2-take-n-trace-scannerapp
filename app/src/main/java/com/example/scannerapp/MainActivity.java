@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //init
-        scannerView = (ZXingScannerView)findViewById(R.id.szxscan);
-        txtResult = (TextView)findViewById(R.id.txt_result);
+        scannerView = findViewById(R.id.szxscan);
+        txtResult = findViewById(R.id.txt_result);
 
         //Request permission
         Dexter.withActivity(this)
