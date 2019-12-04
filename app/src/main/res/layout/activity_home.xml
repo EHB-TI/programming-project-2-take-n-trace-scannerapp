@@ -3,40 +3,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+
     tools:context=".HomeActivity">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:textAlignment="center"
         android:text="Logo Comes here"
-        android:textSize="24dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:textSize="36dp"
+        android:paddingTop="80dp"
         ></TextView>
     <Button
         android:id="@+id/scan_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
+        android:padding="10dp"
         android:textSize="24dp"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimaryDark"
         android:text="Scan"
-        android:onClick="onClickBtn"
+        android:onClick="startScan"
         ></Button>
     <LinearLayout
+        android:paddingTop="15dp"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="wrap_content">
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="100dp"
             android:text="Pick Up"></Button>
         <Button
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:text="Delivery"></Button>
-    </LinearLayout>
 
+    </LinearLayout>
+    <LinearLayout
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="100dp"
+            android:text="Dispatch"
+            android:onClick="callDispatch"></Button>
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="Extra"></Button>
+
+    </LinearLayout>
 </LinearLayout>
