@@ -35,6 +35,7 @@
         android:layout_height="wrap_content">
         <Button
             android:layout_width="0dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:layout_height="100dp"
             android:background="@color/colorPrimary"
@@ -44,7 +45,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
-
+            android:layout_marginLeft="2dp"
             android:layout_height="100dp"
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
@@ -59,6 +60,7 @@
         android:layout_height="wrap_content">
         <Button
             android:layout_width="0dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:layout_height="100dp"
             android:background="@color/colorPrimary"
@@ -68,6 +70,7 @@
             android:onClick="callDispatch"></Button>
         <Button
             android:layout_weight="1"
+            android:layout_marginLeft="2dp"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:background="@color/colorPrimary"
