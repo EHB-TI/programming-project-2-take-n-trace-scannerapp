@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void startScan(View v)
     {
-        Toast.makeText(this, "Clicked on Button", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Clicked on Button", Toast.LENGTH_LONG).show();
         Intent myIntent = new Intent(HomeActivity.this, MainActivity.class);
         HomeActivity.this.startActivity(myIntent);
     }
