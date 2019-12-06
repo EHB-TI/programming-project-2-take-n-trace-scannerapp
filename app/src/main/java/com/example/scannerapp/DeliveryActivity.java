@@ -32,15 +32,17 @@ public class DeliveryActivity extends AppCompatActivity {
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        createHTTPRequest();
+        createHTTPGETRequest("express_backend");
 
     }
-    public void createHTTPRequest() {
-        String url ="http://10.3.50.5:3010/express_backend";
+    public void createHTTPGETRequest(String getRequest) {
+        String url ="http://10.3.50.5:3010/" + getRequest;
+        //TODO: Refactor  this
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
         requestQueue.start();
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
