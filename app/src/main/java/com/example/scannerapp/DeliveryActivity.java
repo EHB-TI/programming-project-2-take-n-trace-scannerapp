@@ -3,6 +3,7 @@ package com.example.scannerapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Cache;
@@ -27,8 +28,11 @@ public class DeliveryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
         textView = findViewById(R.id.testTxt);
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
         createHTTPRequest();
-        textView.setText("testtee");
 
     }
     public void createHTTPRequest() {
