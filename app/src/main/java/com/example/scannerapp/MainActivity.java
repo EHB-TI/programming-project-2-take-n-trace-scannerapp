@@ -7,6 +7,17 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -16,11 +27,14 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
+    RequestQueue requestQueue;
     private ZXingScannerView scannerView;
     private TextView txtResult;
 
@@ -64,11 +78,50 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
 
     @Override
     public void handleResult(Result rawResult) {
-    txtResult.setText(rawResult.getText());
+
+        createHTTPPOSTRequest(rawResult.getText());
+    //txtResult.setText(rawResult.getText());
+
     //processRawResults(rawResult.getText());
     scannerView.startCamera();
     }
+    public void createHTTPPOSTRequest(final String parameter) {
+        String url ="http://10.3.50.5:3010/getPackageById";
+        //TODO: Refactor  this
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
 
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Do something with the response
+                        txtResult.setText(response);
+                        //textView.setText(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        txtResult.setText(error.toString());
+                        // Handle error
+                    }
+
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("packageid",parameter);
+                return map;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        requestQueue.add(stringRequest);
+
+    }
     private void processRawResults(String text) {
         //Package shipment = new Package();
         String[] shipmentInfo = text.split(",");

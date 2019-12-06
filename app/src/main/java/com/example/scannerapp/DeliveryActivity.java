@@ -35,6 +35,7 @@ public class DeliveryActivity extends AppCompatActivity {
         createHTTPGETRequest("express_backend");
 
     }
+
     public void createHTTPGETRequest(String getRequest) {
         String url ="http://10.3.50.5:3010/" + getRequest;
         //TODO: Refactor  this
