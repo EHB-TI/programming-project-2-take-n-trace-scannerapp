@@ -19,21 +19,20 @@
     <EditText
         android:id="@+id/usernameLogin"
         android:textColor="#FFF"
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="20dp"
         android:layout_below="@id/login_logo"
         android:ems="10"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"
         android:inputType="textPersonName"
-        android:text="EmployeeID"
         android:background="#11000000"
-        android:hint="Username"
+        android:hint="EmployeeID"
         android:textSize="16dp"></EditText>
     <EditText
         android:id="@+id/passwordLogin"
         android:textColor="#FFF"
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="20dp"
         android:layout_below="@id/usernameLogin"
         android:ems="10"
@@ -41,7 +40,6 @@
         android:layout_marginTop="28dp"
         android:inputType="textPassword"
         android:hint="Password"
-        android:text="Password"
         android:background="#11000000"
         android:textSize="16dp"></EditText>
 
@@ -53,7 +51,8 @@
         app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="25dp"
         android:layout_marginTop="68dp"
-        app:cardElevation="10dp">
+        app:cardElevation="10dp"
+        android:onClick="onClickLogin">
         <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
