@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:text="hello world"
         android:layout_marginTop="200dp"
         android:layout_alignParentTop="true"></TextView>
 </RelativeLayout>

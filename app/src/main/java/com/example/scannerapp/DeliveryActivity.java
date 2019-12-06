@@ -18,16 +18,21 @@ import com.android.volley.toolbox.StringRequest;
 
 public class DeliveryActivity extends AppCompatActivity {
 
-    final TextView textView = (TextView) findViewById(R.id.testTxt);
+    TextView textView;
     RequestQueue requestQueue;
-    String url ="http://10.3.50.5:3010/express_backend";
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
+        textView = findViewById(R.id.testTxt);
+        createHTTPRequest();
+        textView.setText("testtee");
+
+    }
+    public void createHTTPRequest() {
+        String url ="http://10.3.50.5:3010/express_backend";
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
@@ -37,18 +42,19 @@ public class DeliveryActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Do something with the response
+                        textView.setText(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        textView.setText(error.toString());
                         // Handle error
                     }
                 });
 
-// Add the request to the RequestQueue.
+        // Add the request to the RequestQueue.
         requestQueue.add(stringRequest);
-        textView.setText(stringRequest.toString());
 
     }
 }
