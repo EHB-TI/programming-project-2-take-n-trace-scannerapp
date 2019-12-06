@@ -43,6 +43,7 @@
             android:textSize="24dp"
             android:text="Pick Up"></Button>
         <Button
+            android:id="@+id/delivery_button"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_marginLeft="2dp"
@@ -50,7 +51,8 @@
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
             android:textSize="24dp"
-            android:text="Delivery"></Button>
+            android:text="Delivery"
+            android:onClick="onClickDelivery"></Button>
 
     </LinearLayout>
     <LinearLayout

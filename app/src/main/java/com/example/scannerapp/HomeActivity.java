@@ -11,11 +11,13 @@ import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
     Button scan_but;
+    Button delivery_but;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         scan_but = (Button)findViewById(R.id.scan_button);
+        delivery_but = (Button)findViewById(R.id.delivery_button);
 
     }
 
@@ -35,5 +37,10 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         // disable going back to the MainActivity
         moveTaskToBack(true);
+    }
+    public void onClickDelivery(View v)
+    {
+        Intent myIntent = new Intent(HomeActivity.this, DeliveryActivity.class);
+        HomeActivity.this.startActivity(myIntent);
     }
 }
