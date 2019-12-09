@@ -26,6 +26,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     RequestQueue requestQueue;
     private ZXingScannerView scannerView;
     private TextView txtResult;
+    private static ArrayList<String> deliveryList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                     public void onResponse(String response) {
                         // Do something with the response
                         txtResult.setText(response);
+                        //Toast.makeText(MainActivity.this,response.,Toast.LENGTH_SHORT).show();
+                        deliveryList.add(response);
                         //textView.setText(response);
                     }
                 },
@@ -126,5 +130,9 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         //Package shipment = new Package();
         String[] shipmentInfo = text.split(",");
         Toast.makeText(MainActivity.this,shipmentInfo[0] + ": From " + shipmentInfo[1] + " to " + shipmentInfo[2],Toast.LENGTH_SHORT).show();
+    }
+
+    public static ArrayList<String> getDeliveryList() {
+        return deliveryList;
     }
 }

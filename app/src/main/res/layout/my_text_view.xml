@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="2dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingTop="2dp">
+
+    <TextView
+        android:id="@+id/straat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Wetstraat 12"
+        android:layout_alignParentTop="true"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/stad"
+        android:text="Brussel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/straat" />
+
+    <TextView
+        android:id="@+id/priority"
+        android:text="Express"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        />
+    <TextView
+        android:id="@+id/postcode"
+        android:text="1000"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/straat"
+        />
+
+</RelativeLayout>

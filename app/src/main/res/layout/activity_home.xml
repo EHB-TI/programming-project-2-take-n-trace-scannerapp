@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-
+    android:background="@color/colorAccent"
     tools:context=".HomeActivity">
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:textAlignment="center"
-        android:text="Logo Comes here"
+        android:src="@mipmap/ic_launcher_foreground"
         android:textSize="36dp"
         android:paddingTop="80dp"
-        ></TextView>
+        ></ImageView>
     <Button
         android:id="@+id/scan_button"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
     <LinearLayout
         android:paddingTop="15dp"
         android:layout_width="match_parent"
-        android:layout_weight="1"
+
         android:layout_height="wrap_content">
         <Button
             android:layout_width="0dp"
