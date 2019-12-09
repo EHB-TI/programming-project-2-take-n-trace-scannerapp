@@ -42,6 +42,7 @@ public class DeliveryActivity extends AppCompatActivity {
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        //TODO: Refactor this with intent:
         ArrayList<String> arr = MainActivity.getDeliveryList();
         String str[] = new String[arr.size()];
 
