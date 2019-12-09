@@ -80,13 +80,13 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
 
     @Override
     public void handleResult(Result rawResult) {
-
+        Toast.makeText(MainActivity.this,rawResult.getText() + " has been scanned",Toast.LENGTH_SHORT).show();
+        deliveryList.add(rawResult.getText());
         createHTTPPOSTRequest(rawResult.getText());
-    //txtResult.setText(rawResult.getText());
-
-    //processRawResults(rawResult.getText());
-    scannerView.startCamera();
+        scannerView.setResultHandler(MainActivity.this);
+        scannerView.startCamera();
     }
+    //TODO: add this to the deliveryActivity
     public void createHTTPPOSTRequest(final String parameter) {
         String url ="http://10.3.50.5:3010/getPackageById";
         //TODO: Refactor  this

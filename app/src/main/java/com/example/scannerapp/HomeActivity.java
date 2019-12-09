@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     {
         //Toast.makeText(this, "Clicked on Button", Toast.LENGTH_LONG).show();
         Intent myIntent = new Intent(HomeActivity.this, MainActivity.class);
-        HomeActivity.this.startActivity(myIntent);
+        startActivity(myIntent);
     }
     public void callDispatch(View v)
     {
