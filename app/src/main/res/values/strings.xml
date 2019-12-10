@@ -4,4 +4,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dot">...</string>
+    <string name="com_auth0_client_id">xRsU1OYDwtxuMaUFXK45ceQ2OdGpP20I</string>
+    <string name="com_auth0_domain">dev-gz7srp4h.auth0.com</string>
 </resources>

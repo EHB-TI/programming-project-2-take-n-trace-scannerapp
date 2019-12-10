@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "https"]
     }
     buildTypes {
         release {
@@ -28,7 +29,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-
+    implementation 'com.auth0.android:auth0:1.+'
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'com.android.volley:volley:1.1.1'
