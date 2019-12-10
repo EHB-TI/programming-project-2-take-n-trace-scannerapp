@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.Network;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,6 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
@@ -25,6 +28,9 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     private ZXingScannerView scannerView;
     private TextView txtResult;
     private static ArrayList<String> deliveryList = new ArrayList<String>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,52 +85,13 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
 
     @Override
     public void handleResult(Result rawResult) {
-        Toast.makeText(MainActivity.this,rawResult.getText() + " has been scanned",Toast.LENGTH_SHORT).show();
         deliveryList.add(rawResult.getText());
-        createHTTPPOSTRequest(rawResult.getText());
+
         scannerView.setResultHandler(MainActivity.this);
         scannerView.startCamera();
     }
-    //TODO: add this to the deliveryActivity
-    public void createHTTPPOSTRequest(final String parameter) {
-        String url ="http://10.3.50.5:3010/getPackageById";
-        //TODO: Refactor  this
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Do something with the response
-                        txtResult.setText(response);
-                        //Toast.makeText(MainActivity.this,response.,Toast.LENGTH_SHORT).show();
-                        deliveryList.add(response);
-                        //textView.setText(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        txtResult.setText(error.toString());
-                        // Handle error
-                    }
 
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<>();
-                map.put("packageid",parameter);
-                return map;
-            }
-        };
-
-        // Add the request to the RequestQueue.
-        requestQueue.add(stringRequest);
-
-    }
     private void processRawResults(String text) {
         //Package shipment = new Package();
         String[] shipmentInfo = text.split(",");
