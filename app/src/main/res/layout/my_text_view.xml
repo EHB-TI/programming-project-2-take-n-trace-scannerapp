@@ -5,10 +5,7 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingBottom="2dp"
-    android:paddingLeft="2dp"
-    android:paddingRight="2dp"
-    android:paddingTop="2dp">
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/straat"

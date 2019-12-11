@@ -37,11 +37,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                ss.add(q);
            }
        }
+       for (int x = 0; x < 23; x++) {
+           newArr[x] = ss.get((x*2)+1);
+       }
+       /*
        for(int x = 0; x < 46; x++) {
-           if (x % 2 != 0) {
+           if ( x == 1 || x % 2 != 0) {
                newArr[x / 2] = ss.get(x);
            }
-       }
+       }*/
        return newArr;
     }
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -68,8 +72,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - replace the contents of the view with that element
         String[] newArr = new String[23];
         newArr = jsonStringToStringArray(mDataset[position]);
-        holder.straat.setText(newArr[8]);
-
+        holder.straat.setText(newArr[8] + " " + newArr[9]);
+        holder.priority.setText(newArr[20]);
+        holder.postc.setText(newArr[10]);
+        holder.stad.setText(newArr[11]);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
