@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     private ZXingScannerView scannerView;
     private TextView txtResult;
     private static ArrayList<String> deliveryList = new ArrayList<String>();
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,10 +85,52 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         scannerView.stopCamera();
         super.onDestroy();
     }
+    public void createHTTPPOSTRequest(final String parameter) {
+        String url ="http://10.3.50.5:3010/getPackageById";
+        //TODO: Refactor  this
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
 
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Do something with the response
+                        deliveryList.add(response);
+                        Log.i(TAG,response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                    }
+
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("packageid",parameter);
+                return map;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        //requestQueue.add(stringRequest);
+        requestQueue.add(stringRequest);
+    }
     @Override
     public void handleResult(Result rawResult) {
-        deliveryList.add(rawResult.getText());
+        //TODO: Do this check server side
+        /*if (deliveryList.contains(rawResult.getText())){
+            Toast.makeText(MainActivity.this,"Package has already been scanned!",Toast.LENGTH_SHORT).show();
+        } else {*/
+
+        createHTTPPOSTRequest(rawResult.getText());
+
+
 
         scannerView.setResultHandler(MainActivity.this);
         scannerView.startCamera();

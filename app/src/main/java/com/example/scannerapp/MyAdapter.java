@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private String[] mDataset;
 
@@ -25,7 +27,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             postc = (TextView) v.findViewById(R.id.postcode);
         }
     }
+    public String[] jsonStringToStringArray(String s) {
+       String[] newArr = new String[23];
+       ArrayList<String> ss = new ArrayList<>();
 
+       s = s.substring(2, s.length()- 2);
+       for(String w: s.split(",")) {
+           for (String q: w.split(":")) {
+               ss.add(q);
+           }
+       }
+       for(int x = 0; x < 46; x++) {
+           if (x % 2 != 0) {
+               newArr[x / 2] = ss.get(x);
+           }
+       }
+       return newArr;
+    }
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(String[] myDataset) {
         mDataset = myDataset;
@@ -48,7 +66,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.straat.setText(mDataset[position]);
+        String[] newArr = new String[23];
+        newArr = jsonStringToStringArray(mDataset[position]);
+        holder.straat.setText(newArr[8]);
 
     }
 
