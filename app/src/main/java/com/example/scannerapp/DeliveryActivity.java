@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ import java.util.Map;
 
 public class DeliveryActivity extends AppCompatActivity {
 
-    private RequestQueue requestQueue;
+
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
@@ -66,70 +67,6 @@ public class DeliveryActivity extends AppCompatActivity {
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        //createHTTPGETRequest("express_backend");
-
-    }
-    public void createHTTPPOSTRequest(final String parameter) {
-        String url ="http://10.3.50.5:3010/getPackageById";
-        //TODO: Refactor  this
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Do something with the response
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                    }
-
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<>();
-                map.put("packageid",parameter);
-                return map;
-            }
-        };
-
-        // Add the request to the RequestQueue.
-        //requestQueue.add(stringRequest);
-        requestQueue.add(stringRequest);
-    }
-    public void createHTTPGETRequest(String getRequest) {
-        String url ="http://10.3.50.5:3010/" + getRequest;
-        //TODO: Refactor  this
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Do something with the response
-                        //ArrayList<String> s = MainActivity.getDeliveryList();
-                        //textView.setText(s.get(0));
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //textView.setText(error.toString());
-                        // Handle error
-                    }
-                });
-
-        // Add the request to the RequestQueue.
-        requestQueue.add(stringRequest);
 
     }
 }

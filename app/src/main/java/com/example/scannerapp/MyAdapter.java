@@ -1,5 +1,6 @@
 package com.example.scannerapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
        String[] newArr = new String[23];
        ArrayList<String> ss = new ArrayList<>();
 
-       s = s.substring(2, s.length()- 2);
-       for(String w: s.split(",")) {
+       String r = s.substring(2, s.length()- 2);
+       for(String w: r.split(",")) {
            for (String q: w.split(":")) {
                ss.add(q);
            }
@@ -40,12 +41,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
        for (int x = 0; x < 23; x++) {
            newArr[x] = ss.get((x*2)+1);
        }
-       /*
-       for(int x = 0; x < 46; x++) {
-           if ( x == 1 || x % 2 != 0) {
-               newArr[x / 2] = ss.get(x);
-           }
-       }*/
        return newArr;
     }
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -70,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        String[] newArr = new String[23];
+        String[] newArr;
         newArr = jsonStringToStringArray(mDataset[position]);
         holder.straat.setText(newArr[8] + " " + newArr[9]);
         holder.priority.setText(newArr[20]);

@@ -78,7 +78,8 @@
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
             android:textSize="24dp"
-            android:text="Extra"></Button>
+            android:text="Extra"
+            android:onClick="onClicky"></Button>
 
     </LinearLayout>
 </LinearLayout>
