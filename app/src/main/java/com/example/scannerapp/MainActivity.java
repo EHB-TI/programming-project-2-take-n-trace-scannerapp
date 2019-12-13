@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         super.onDestroy();
     }
     public void createHTTPPOSTRequest(final String parameter) {
-        String url ="http://10.3.50.5:3010/getPackageById";
+        String url ="http://10.3.50.5:3010/getPackageByTrackingNumber";
         //TODO: Refactor  this
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
@@ -98,7 +98,11 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                     @Override
                     public void onResponse(String response) {
                         // Do something with the response
-                        deliveryList.add(response);
+                        if (deliveryList.contains(response)) {
+                            Log.i(TAG, "duplicate: " + response);
+                        } else {
+                            deliveryList.add(response);
+                        }
                         Log.i(TAG,response);
                     }
                 },
@@ -112,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
-                map.put("packageid",parameter);
+                map.put("trackingnumber",parameter);
                 return map;
             }
         };

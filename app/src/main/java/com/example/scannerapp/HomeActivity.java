@@ -63,43 +63,14 @@ public class HomeActivity extends AppCompatActivity {
         Intent myIntent = new Intent(HomeActivity.this, DeliveryActivity.class);
         HomeActivity.this.startActivity(myIntent);
     }
+    public void onClickPickUp(View v) {
+        Intent myIntent = new Intent(HomeActivity.this, PickUpActivity.class);
+        HomeActivity.this.startActivity(myIntent);
+    }
     public void onClicky(View v)
     {
-        final String tn = "12232656522";
-        String url ="http://10.3.50.5:3010/changeStatusToDeliveryByTn";
-        //TODO: Refactor  this
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("trackingnumber", tn);
-                return params;
-            }
-        };
-
-        requestQueue.add(putRequest);
+        Intent myIntent = new Intent(HomeActivity.this, ExtraActivity.class);
+        HomeActivity.this.startActivity(myIntent);
     }
 
 }
