@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PickUpActivity">
+    tools:context=".DeliveredActivity">
 
     <me.dm7.barcodescanner.zxing.ZXingScannerView
         android:id="@+id/scanDelivered"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

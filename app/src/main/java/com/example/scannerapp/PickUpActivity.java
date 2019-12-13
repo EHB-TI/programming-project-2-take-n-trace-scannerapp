@@ -99,8 +99,8 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
                 return params;
             }
         };
-        /*
-        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url+p2,
+
+        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, "http://10.3.50.5:3010/createReport",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -123,13 +123,13 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("courierid", "1");
-                params.put("packageid", "2");
-                params.put("status","Delivery");
+                params.put("trackingnumber", tn);
+                params.put("status","PickUp");
                 return params;
             }
         };
-        */
+
         requestQueue.add(putRequest);
-        //requestQueue.add(putReportsRequest);
+        requestQueue.add(putReportsRequest);
     }
 }

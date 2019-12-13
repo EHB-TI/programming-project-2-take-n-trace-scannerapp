@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     }
     public void createHTTPPOSTRequest(final String parameter) {
         String url ="http://10.3.50.5:3010/getPackageByTrackingNumber";
+        String url2 = "http://10.3.50.5:3010/changeStatusToDeliveryByTn";
+        String url3 = "http://10.3.50.5:3010/createReport";
         //TODO: Refactor  this
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
         Network network = new BasicNetwork(new HurlStack());
@@ -121,9 +123,64 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             }
         };
 
-        // Add the request to the RequestQueue.
-        //requestQueue.add(stringRequest);
+        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url3,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("courierid", "1");
+                params.put("trackingnumber", parameter);
+                params.put("status","Delivery");
+                return params;
+            }
+        };
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url2,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("trackingnumber", parameter);
+                return params;
+            }
+        };
+
         requestQueue.add(stringRequest);
+        requestQueue.add(putRequest);
+        requestQueue.add(putReportsRequest);
     }
     @Override
     public void handleResult(Result rawResult) {

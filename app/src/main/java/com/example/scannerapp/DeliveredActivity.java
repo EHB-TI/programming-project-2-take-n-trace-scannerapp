@@ -38,7 +38,7 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_up);
+        setContentView(R.layout.activity_delivered);
         scannerView = findViewById(R.id.scanDelivered);
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.CAMERA)
@@ -99,8 +99,8 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
                 return params;
             }
         };
-        /*
-        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url+p2,
+
+        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, "http://10.3.50.5:3010/createReport",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -123,13 +123,13 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("courierid", "1");
-                params.put("packageid", "2");
-                params.put("status","Delivery");
+                params.put("trackingnumber", tn);
+                params.put("status","Delivered");
                 return params;
             }
         };
-        */
+
         requestQueue.add(putRequest);
-        //requestQueue.add(putReportsRequest);
+        requestQueue.add(putReportsRequest);
     }
 }

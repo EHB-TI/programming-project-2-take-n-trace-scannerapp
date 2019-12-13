@@ -41,7 +41,8 @@
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
             android:textSize="24dp"
-            android:text="Pick Up"></Button>
+            android:text="Pick Up"
+            android:onClick="onClickPickUp"></Button>
         <Button
             android:id="@+id/delivery_button"
             android:layout_width="0dp"
