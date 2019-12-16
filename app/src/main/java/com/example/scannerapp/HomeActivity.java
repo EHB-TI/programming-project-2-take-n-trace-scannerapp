@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     public void onClicky(View v)
     {
-        Intent myIntent = new Intent(HomeActivity.this, ExtraActivity.class);
+        Intent myIntent = new Intent(HomeActivity.this, DeliveredActivity.class);
         HomeActivity.this.startActivity(myIntent);
     }
 

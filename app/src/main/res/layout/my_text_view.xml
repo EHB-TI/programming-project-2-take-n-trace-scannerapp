@@ -30,10 +30,10 @@
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         />
-    <TextView
-        android:id="@+id/postcode"
-        android:text="1000"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/delete_but"
+        android:src="@drawable/ic_delete_rv"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/straat"

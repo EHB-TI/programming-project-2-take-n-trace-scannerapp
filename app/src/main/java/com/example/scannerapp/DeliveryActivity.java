@@ -59,7 +59,7 @@ public class DeliveryActivity extends AppCompatActivity {
             str[j] = arr.get(j);
         }
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(str);
+        mAdapter = new MyAdapter(arr);
         recyclerView.setAdapter(mAdapter);
 
 
