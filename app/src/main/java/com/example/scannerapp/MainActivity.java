@@ -3,24 +3,18 @@ package com.example.scannerapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
@@ -30,11 +24,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         setContentView(R.layout.activity_main);
         //init
         scannerView = findViewById(R.id.szxscan);
-        txtResult = findViewById(R.id.txt_result);
 
         //Request permission
         Dexter.withActivity(this)
@@ -86,16 +76,9 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         super.onDestroy();
     }
     public void createHTTPPOSTRequest(final String parameter) {
-        String url ="http://10.3.50.5:3010/getPackageByTrackingNumber";
-        String url2 = "http://10.3.50.5:3010/changeStatusToDeliveryByTn";
-        String url3 = "http://10.3.50.5:3010/createReport";
-        //TODO: Refactor  this
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
+        String url ="http://10.3.50.5:3010/";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url + "getPackageByTrackingNumber",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -123,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             }
         };
 
-        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url3,
+        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url + "createReport",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -151,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                 return params;
             }
         };
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url2,
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url + "changeStatusToDeliveryByTn",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -178,9 +161,9 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             }
         };
 
-        requestQueue.add(stringRequest);
-        requestQueue.add(putRequest);
-        requestQueue.add(putReportsRequest);
+        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putRequest);
+        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putReportsRequest);
     }
     @Override
     public void handleResult(Result rawResult) {
@@ -196,12 +179,10 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         scannerView.setResultHandler(MainActivity.this);
         scannerView.startCamera();
     }
-
-
-    private void processRawResults(String text) {
-        //Package shipment = new Package();
-        String[] shipmentInfo = text.split(",");
-        Toast.makeText(MainActivity.this,shipmentInfo[0] + ": From " + shipmentInfo[1] + " to " + shipmentInfo[2],Toast.LENGTH_SHORT).show();
+    public void onClickDeliveryListBut(View v) {
+        //Toast.makeText(this, "Clicked on Button", Toast.LENGTH_LONG).show();
+        Intent myIntent = new Intent(MainActivity.this, DeliveryActivity.class);
+        startActivity(myIntent);
     }
 
     public static ArrayList<String> getDeliveryList() {

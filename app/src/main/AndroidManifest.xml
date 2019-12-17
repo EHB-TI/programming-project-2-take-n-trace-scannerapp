@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DeliveredActivity"></activity>
+        <activity android:name=".SignatureActivity"></activity>
+        <activity android:name=".DeliveredActivity" />
         <activity android:name=".PickUpActivity" />
         <activity android:name=".ExtraActivity" />
         <activity android:name=".DeliveryActivity" />

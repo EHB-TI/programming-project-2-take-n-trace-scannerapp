@@ -52,7 +52,7 @@
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
             android:textSize="24dp"
-            android:text="Delivery"
+            android:text="Delivery List"
             android:onClick="onClickDelivery"></Button>
 
     </LinearLayout>
@@ -79,7 +79,7 @@
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
             android:textSize="24dp"
-            android:text="Delivered"
+            android:text="On Delivery"
             android:onClick="onClicky"></Button>
 
     </LinearLayout>

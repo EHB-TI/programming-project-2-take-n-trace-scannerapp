@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
     }
 
+
     private void login() {
         WebAuthProvider.login(account)
                 .withAudience("https://dev-gz7srp4h.auth0.com/userinfo")

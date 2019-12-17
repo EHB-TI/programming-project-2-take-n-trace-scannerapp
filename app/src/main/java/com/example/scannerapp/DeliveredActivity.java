@@ -64,8 +64,10 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
 
     @Override
     public void handleResult(Result rawResult) {
+
         changeStatus(rawResult.getText());
     }
+
     public void changeStatus(final String tn) {
         String url ="http://10.3.50.5:3010/changeStatusToDeliveredByTn";
         //TODO: Refactor  this
