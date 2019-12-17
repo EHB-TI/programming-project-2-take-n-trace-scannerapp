@@ -5,29 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.StringRequest;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
-    Button scan_but;
-    Button delivery_but;
-    RequestQueue requestQueue;
+    private Button scan_but;
+    private Button delivery_but;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +21,6 @@ public class HomeActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
         scan_but = (Button)findViewById(R.id.scan_button);
         delivery_but = (Button)findViewById(R.id.delivery_button);
-
     }
 
     public void startScan(View v)

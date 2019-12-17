@@ -7,15 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
@@ -33,7 +27,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class PickUpActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView scannerView;
-    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +60,8 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
         changeStatus(rawResult.getText());
     }
     public void changeStatus(final String tn) {
-        String url ="http://10.3.50.5:3010/changeStatusToPickUpByTn";
-        //TODO: Refactor  this
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
+        String url ="http://10.3.50.5:3010/";
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url + "changeStatusToPickUpByTn",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -100,7 +88,7 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
             }
         };
 
-        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, "http://10.3.50.5:3010/createReport",
+        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url + "createReport",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -128,8 +116,7 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
                 return params;
             }
         };
-
-        requestQueue.add(putRequest);
-        requestQueue.add(putReportsRequest);
+        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putRequest);
+        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putReportsRequest);
     }
 }

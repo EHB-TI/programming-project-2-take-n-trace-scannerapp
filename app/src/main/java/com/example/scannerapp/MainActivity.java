@@ -7,12 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -33,9 +31,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
-    RequestQueue requestQueue;
     private ZXingScannerView scannerView;
-    private TextView txtResult;
     private static ArrayList<String> deliveryList = new ArrayList<String>();
     private static final String TAG = "MainActivity";
 
@@ -167,9 +163,9 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     }
     @Override
     public void handleResult(Result rawResult) {
-        //TODO: Do this check server side
+
         /*if (deliveryList.contains(rawResult.getText())){
-            Toast.makeText(MainActivity.this,"Package has already been scanned!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,"ok has already been scanned!",Toast.LENGTH_SHORT).show();
         } else {*/
 
         createHTTPPOSTRequest(rawResult.getText());

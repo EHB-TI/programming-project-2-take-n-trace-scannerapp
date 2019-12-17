@@ -33,7 +33,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class DeliveredActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView scannerView;
-    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +68,8 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
     }
 
     public void changeStatus(final String tn) {
-        String url ="http://10.3.50.5:3010/changeStatusToDeliveredByTn";
-        //TODO: Refactor  this
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
+        String url ="http://10.3.50.5:3010/";
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url + "changeStatusToDeliveredByTn",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -102,7 +96,7 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
             }
         };
 
-        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, "http://10.3.50.5:3010/createReport",
+        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url + "createReport",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -131,7 +125,7 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
             }
         };
 
-        requestQueue.add(putRequest);
-        requestQueue.add(putReportsRequest);
+        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putRequest);
+        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putReportsRequest);
     }
 }
