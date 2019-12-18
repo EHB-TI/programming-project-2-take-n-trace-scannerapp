@@ -30,7 +30,7 @@ public class DeliveryActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         //TODO: Refactor this with intent:
-        ArrayList<String> arr = MainActivity.getDeliveryList();
+        ArrayList<String> arr = NetworkController.getDeliveryList();
         String str[] = new String[arr.size()];
 
         // ArrayList to Array Conversion

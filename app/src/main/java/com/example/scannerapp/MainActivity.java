@@ -32,7 +32,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView scannerView;
-    private static ArrayList<String> deliveryList = new ArrayList<String>();
     private static final String TAG = "MainActivity";
 
     @Override
@@ -71,104 +70,25 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         scannerView.stopCamera();
         super.onDestroy();
     }
-    public void createHTTPPOSTRequest(final String parameter) {
-        String url ="http://10.3.50.5:3010/";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url + "getPackageByTrackingNumber",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Do something with the response
-                        if (deliveryList.contains(response)) {
-                            Log.i(TAG, "duplicate: " + response);
-                        } else {
-                            deliveryList.add(response);
-                        }
-                        Log.i(TAG,response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                    }
-
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<>();
-                map.put("trackingnumber",parameter);
-                return map;
-            }
-        };
-
-        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url + "createReport",
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("courierid", "1");
-                params.put("trackingnumber", parameter);
-                params.put("status","Delivery");
-                return params;
-            }
-        };
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url + "changeStatusToDeliveryByTn",
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("trackingnumber", parameter);
-                return params;
-            }
-        };
-
-        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putRequest);
-        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putReportsRequest);
-    }
     @Override
     public void handleResult(Result rawResult) {
 
-        /*if (deliveryList.contains(rawResult.getText())){
-            Toast.makeText(MainActivity.this,"ok has already been scanned!",Toast.LENGTH_SHORT).show();
-        } else {*/
+        String trackingNumber = rawResult.getText();
+        HashMap<String,String> parameters = new HashMap<>();
+        HashMap<String,String> parameters2 = new HashMap<>();
 
-        createHTTPPOSTRequest(rawResult.getText());
+
+        //Add the parameters needed for getPackageByTrackingNumber & changeStatusToDeliveryByTn
+        parameters.put("trackingnumber",trackingNumber);
+
+        //Add the parameters needed for createReport
+        parameters2.put("courierid", "1");
+        parameters2.put("trackingnumber", trackingNumber);
+        parameters2.put("status","Delivery");
+
+        NetworkController.getInstance(getApplicationContext()).createHTTPPostRequest(parameters,"getPackageByTrackingNumber");
+        NetworkController.getInstance(getApplicationContext()).createHTTPPostRequest(parameters2,"createReport");
+        NetworkController.getInstance(getApplicationContext()).createHTTPPutRequest(parameters,"changeStatusToDeliveryByTn");
 
 
 
@@ -181,7 +101,5 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         startActivity(myIntent);
     }
 
-    public static ArrayList<String> getDeliveryList() {
-        return deliveryList;
-    }
+
 }

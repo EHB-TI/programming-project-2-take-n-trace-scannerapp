@@ -57,6 +57,7 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
 
     @Override
     public void handleResult(Result rawResult) {
+
         changeStatus(rawResult.getText());
     }
     public void changeStatus(final String tn) {
