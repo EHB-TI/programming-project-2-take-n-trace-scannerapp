@@ -3,6 +3,7 @@ package com.example.scannerapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -64,6 +65,10 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
     @Override
     public void handleResult(Result rawResult) {
 
+        Intent myIntent = new Intent(DeliveredActivity.this, SignatureActivity.class);
+        myIntent.putExtra("trackingnumber",rawResult.getText());
+        DeliveredActivity.this.startActivity(myIntent);
+        /*
         String trackingNumber = rawResult.getText();
         HashMap<String,String> parameters = new HashMap<>();
         HashMap<String,String> parameters2 = new HashMap<>();
@@ -79,5 +84,7 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
 
         NetworkController.getInstance(getApplicationContext()).createHTTPPostRequest(parameters2,"createReport");
         NetworkController.getInstance(getApplicationContext()).createHTTPPutRequest(parameters,"changeStatusToDeliveredByTn");
+        */
+
     }
 }

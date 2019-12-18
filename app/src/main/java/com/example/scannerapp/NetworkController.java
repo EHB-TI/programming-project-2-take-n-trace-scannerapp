@@ -2,7 +2,6 @@ package com.example.scannerapp;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.Pair;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -76,8 +75,6 @@ public class NetworkController {
                 }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //map.put("trackingnumber",parameter);
-
                 return parameters;
             }
         };
