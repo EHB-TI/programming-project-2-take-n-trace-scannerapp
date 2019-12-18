@@ -64,68 +64,20 @@ public class DeliveredActivity extends AppCompatActivity implements ZXingScanner
     @Override
     public void handleResult(Result rawResult) {
 
-        changeStatus(rawResult.getText());
-    }
+        String trackingNumber = rawResult.getText();
+        HashMap<String,String> parameters = new HashMap<>();
+        HashMap<String,String> parameters2 = new HashMap<>();
 
-    public void changeStatus(final String tn) {
-        String url ="http://10.3.50.5:3010/";
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url + "changeStatusToDeliveredByTn",
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
 
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("trackingnumber", tn);
-                return params;
-            }
-        };
+        //Add the parameters needed for changeStatusToDeliveredByTn
+        parameters.put("trackingnumber",trackingNumber);
 
-        StringRequest putReportsRequest = new StringRequest(Request.Method.POST, url + "createReport",
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
+        //Add the parameters needed for createReport
+        parameters2.put("courierid", "1");
+        parameters2.put("trackingnumber", trackingNumber);
+        parameters2.put("status","Delivered");
 
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("courierid", "1");
-                params.put("trackingnumber", tn);
-                params.put("status","Delivered");
-                return params;
-            }
-        };
-
-        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putRequest);
-        NetworkController.getInstance(getApplicationContext()).addToRequestQueue(putReportsRequest);
+        NetworkController.getInstance(getApplicationContext()).createHTTPPostRequest(parameters2,"createReport");
+        NetworkController.getInstance(getApplicationContext()).createHTTPPutRequest(parameters,"changeStatusToDeliveredByTn");
     }
 }

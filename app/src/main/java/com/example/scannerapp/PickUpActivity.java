@@ -4,13 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -20,8 +15,6 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.HashMap;
-import java.util.Map;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class PickUpActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
@@ -57,7 +50,7 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
 
     @Override
     public void handleResult(Result rawResult) {
-        
+
         String trackingNumber = rawResult.getText();
         HashMap<String,String> parameters = new HashMap<>();
         HashMap<String,String> parameters2 = new HashMap<>();
@@ -73,8 +66,6 @@ public class PickUpActivity extends AppCompatActivity implements ZXingScannerVie
 
         NetworkController.getInstance(getApplicationContext()).createHTTPPostRequest(parameters2,"createReport");
         NetworkController.getInstance(getApplicationContext()).createHTTPPutRequest(parameters,"changeStatusToPickUpByTn");
-
-
     }
 
 }
