@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
-    private Button scan_but;
-    private Button delivery_but;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,13 +16,10 @@ public class HomeActivity extends AppCompatActivity {
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        scan_but = (Button)findViewById(R.id.scan_button);
-        delivery_but = (Button)findViewById(R.id.delivery_button);
     }
 
     public void startScan(View v)
     {
-        //Toast.makeText(this, "Clicked on Button", Toast.LENGTH_LONG).show();
         Intent myIntent = new Intent(HomeActivity.this, MainActivity.class);
         startActivity(myIntent);
     }

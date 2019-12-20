@@ -59,7 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             });
         }
     }
-
+    // zet al de values van de json in een arraylist
     public ArrayList<String> jsonStringToStringArray(String s) {
        ArrayList<String> newArr = new ArrayList<>();
        ArrayList<String> ss = new ArrayList<>();

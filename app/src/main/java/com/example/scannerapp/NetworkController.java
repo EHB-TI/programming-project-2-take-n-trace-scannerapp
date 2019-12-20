@@ -46,14 +46,17 @@ public class NetworkController {
         return mRequestQueue;
     }
     public  void addToRequestQueue(Request req) {
-        getRequestQueue().add(req);
+        if (req != null) {
+            getRequestQueue().add(req);
+        }
     }
+
     public void createHTTPPostRequest(final HashMap<String,String> parameters, final String apiCall) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url + apiCall,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Do something with the response
+                        // extra check bij het toevoegen aan deliverylist
                         if(apiCall == "getPackageByTrackingNumber") {
                             if (deliveryList.contains(response)) {
                                 Toast.makeText(mCtx,"Tracking number has already been scanned!",Toast.LENGTH_SHORT).show();
